@@ -1,0 +1,26 @@
+{
+  "name": "@dessign-patterns/dessign-patterns-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "implicitDependencies": [
+      "@dessign-patterns/dessign-patterns"
+    ],
+    "targets": {
+      "e2e": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "apps/dessign-patterns-e2e/jest.config.ts",
+          "passWithNoTests": true
+        },
+        "dependsOn": [
+          "@dessign-patterns/dessign-patterns:build",
+          "@dessign-patterns/dessign-patterns:serve"
+        ]
+      }
+    }
+  }
+}

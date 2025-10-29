@@ -1,0 +1,1 @@
+export type ProductsType = 'koderx-blue' | 'koderx-red' | 'koderx-green';
