@@ -1,3 +1,4 @@
+import { ProductBuilder } from "../common/builders/ProductBuilder";
 import { Decorators } from "../common/decorators/Decorators";
 import { PrototypeProduct } from "../contracts/PrototypeProduct";
 import { ProductsType } from "../types/products.types";
@@ -5,7 +6,7 @@ import { KoderxBlueEntity } from "./KoderxBlue.entity";
 import { KoderxRedEntity } from "./KoderxRed.entity";
 
 export class ProductEntity implements PrototypeProduct, Decorators<ProductEntity> {
-    constructor(
+    private constructor(
         public id: string,
         public name: ProductsType,
         public price: number
@@ -13,6 +14,10 @@ export class ProductEntity implements PrototypeProduct, Decorators<ProductEntity
 
     clone(): PrototypeProduct {
         return new ProductEntity(this.id, this.name, this.price);
+    }
+
+    static builder(): ProductBuilder{
+        return new ProductBuilder();
     }
 
     makeProduct(): void {
