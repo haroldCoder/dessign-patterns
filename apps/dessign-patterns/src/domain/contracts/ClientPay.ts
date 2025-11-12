@@ -1,4 +1,4 @@
-import { Users } from "../common/Users";
+import { Users } from "../../common/Users";
 
 export interface PayData{
     amount: number,

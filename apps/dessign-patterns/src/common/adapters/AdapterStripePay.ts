@@ -1,5 +1,5 @@
-import { ClientPay, PayData } from "../../contracts/ClientPay";
-import { StripePay } from "../../services/StripePay.service";
+import { ClientPay, PayData } from "../../domain/contracts/ClientPay";
+import { StripePay } from "../../domain/services/StripePay.service";
 
 export class AdapterStripePay implements ClientPay{
     stripePay: StripePay;

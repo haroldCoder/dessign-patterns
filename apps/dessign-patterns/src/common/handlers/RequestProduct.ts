@@ -1,5 +1,5 @@
-import { ProductsOrderFactory } from "../../factories/ProductOrder.factory";
-import { CreateOrderService } from "../../services/createOrder.service";
+import { ProductsOrderFactory } from "../../domain/factories/ProductOrder.factory";
+import { CreateOrderService } from "../../domain/services/createOrder.service";
 import { BaseHandlerChain } from "../BaseHandlerChain";
 import { ProductRequest } from "../interfaces/IProductRequest";
 

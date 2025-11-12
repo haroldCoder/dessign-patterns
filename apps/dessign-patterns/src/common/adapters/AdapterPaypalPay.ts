@@ -1,5 +1,5 @@
-import { ClientPay, PayData } from '../../contracts/ClientPay';
-import { PaypalPayService } from '../../services/PaypalPay.service';
+import { ClientPay, PayData } from '../../domain/contracts/ClientPay';
+import { PaypalPayService } from '../../domain/services/PaypalPay.service';
 
 export class AdapterPaypalPay implements ClientPay {
     private paypalPayService: PaypalPayService;

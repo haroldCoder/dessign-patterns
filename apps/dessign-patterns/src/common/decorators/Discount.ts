@@ -1,4 +1,4 @@
-import { ProductEntity } from "../../entities/Product.entity";
+import { ProductEntity } from "../../domain/entities/Product.entity";
 import { BaseDecoratorProduct } from "./BaseDecoratorProduct";
 
 export class Discount extends BaseDecoratorProduct {

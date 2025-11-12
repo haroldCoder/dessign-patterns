@@ -1,4 +1,4 @@
-import { ProductsType } from "../../types/products.types";
+import { ProductsType } from "../../domain/types/products.types";
 
 export interface ProductRequest {
     producType: ProductsType;

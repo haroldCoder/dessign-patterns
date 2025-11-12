@@ -1,5 +1,5 @@
-import { ProductBuilder } from "../common/builders/ProductBuilder";
-import { Decorators } from "../common/decorators/Decorators";
+import { ProductBuilder } from "../../common/builders/ProductBuilder";
+import { Decorators } from "../../common/decorators/Decorators";
 import { PrototypeProduct } from "../contracts/PrototypeProduct";
 import { ProductsType } from "../types/products.types";
 import { KoderxBlueEntity } from "./KoderxBlue.entity";

@@ -1,5 +1,5 @@
-import { ProductEntity } from "../../entities/Product.entity";
-import { ProductsType } from "../../types/products.types";
+import { ProductEntity } from "../../domain/entities/Product.entity";
+import { ProductsType } from "../../domain/types/products.types";
 
 export class ProductBuilder {
     private _id?: string;

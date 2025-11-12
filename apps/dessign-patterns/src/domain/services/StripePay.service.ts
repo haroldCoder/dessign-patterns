@@ -1,4 +1,4 @@
-import { Users } from "../common/Users";
+import { Users } from "../../common/Users";
 
 export class StripePay {
     constructor(private cardNumberDest: number,
