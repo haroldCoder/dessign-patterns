@@ -1,14 +1,21 @@
 import { CreateOrderUseCae } from "./apps/EnergyKoderx/createOrder"
 import { AdapterCashPay } from "./common/adapters/AdapterCashPay";
 import { AdapterStripePay } from "./common/adapters/AdapterStripePay";
+import { AdapterSustanciaToBebida } from "./common/adapters/AdapterSustanciaToBebida";
 import { Discount } from "./common/decorators/Discount";
+import { LoadToTransport } from "./common/handlers/LoadToTransport";
+import { PackageProduct } from "./common/handlers/PackageProduct";
 import { RequestOrder } from "./common/handlers/RequestProduct";
+import { ShipToLocation } from "./common/handlers/ShipToLocation";
 import { ValidAmount } from "./common/handlers/ValidAmount";
+import { OrderData } from "./common/interfaces/OrderData";
 import { PointUserForPay } from "./common/observers/pointsUser";
 import { PublisherUserPay } from "./common/observers/PublishersUserPay";
 import { SavePay } from "./common/observers/savePay";
 import { Users } from "./common/Users";
+import { CafeinaEntity } from "./domain/entities/Cafeina.entity";
 import { ProductEntity } from "./domain/entities/Product.entity";
+import { TaurinaEntity } from "./domain/entities/Taurina.entity";
 import { ProductsOrderFactory } from "./domain/factories/ProductOrder.factory";
 import { CreateOrderService } from "./domain/services/createOrder.service";
 import { StripePay } from "./domain/services/StripePay.service";
@@ -51,3 +58,43 @@ orchestadorPay.subscribe(new PointUserForPay());
 
 const payWithCash = new AdapterCashPay(orchestadorPay);
 payWithCash.methodPay({user: user1, amount: 1000, currency: "USD"});
+
+// ============================================
+// Ejemplo del Patrón Adaptador: Sustancia a Bebida
+// ============================================
+console.log("\n╔════════════════════════════════════════════╗");
+console.log("║   PATRÓN ADAPTADOR: Sustancia → Bebida     ║");
+console.log("╚════════════════════════════════════════════╝");
+
+const cafeina = new CafeinaEntity();
+const taurina = new TaurinaEntity();
+
+const bebidaDeCafeina = new AdapterSustanciaToBebida(cafeina);
+const bebidaDeTaurina = new AdapterSustanciaToBebida(taurina);
+
+bebidaDeCafeina.make();
+bebidaDeTaurina.make();
+
+// ============================================
+// Ejemplo del Patrón Cadena de Responsabilidad: Flujo Post-Pago
+// ============================================
+console.log("\n\n╔════════════════════════════════════════════════════╗");
+console.log("║    CADENA DE RESPONSABILIDAD: Flujo Post-Pago     ║");
+console.log("╚════════════════════════════════════════════════════╝");
+
+const orderData: OrderData = {
+    orderId: "ORD-2024-001",
+    productName: "Koderx Blue Energy Drink",
+    destination: "Av. Principal 123, Medellin, Colombia",
+    customerName: "Juan Pérez"
+};
+
+const packageHandler = new PackageProduct();
+const loadHandler = new LoadToTransport();
+const shipHandler = new ShipToLocation();
+
+packageHandler.setNext(loadHandler).setNext(shipHandler);
+
+packageHandler.handle(orderData);
+
+console.log("\n✅ Proceso de orden completado exitosamente!");
