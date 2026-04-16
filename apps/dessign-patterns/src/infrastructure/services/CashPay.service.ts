@@ -1,8 +1,8 @@
-import { ClientPay } from '../contracts/ClientPay';
-import { PayData } from '../contracts/ClientPay';
+import { ClientPay } from '../../domain/contracts/ClientPay';
+import { PayData } from '../../domain/contracts/ClientPay';
 
 export class CashPayService implements ClientPay {
-    constructor() {}
+    constructor() { }
 
     async methodPay(payData: PayData): Promise<void> {
         try {

@@ -1,7 +1,7 @@
-import { ClientPay, PayData } from '../contracts/ClientPay';
+import { ClientPay, PayData } from '../../domain/contracts/ClientPay';
 
 export class PaypalPayService implements ClientPay {
-    constructor() {}
+    constructor() { }
 
     async methodPay(payData: PayData): Promise<void> {
         try {
@@ -9,7 +9,7 @@ export class PaypalPayService implements ClientPay {
             console.log(`Usuario: ${payData.user.name}`);
             console.log(`Monto a pagar: ${payData.amount} ${payData.currency}`);
             console.log('Transacción PayPal exitosa');
-            
+
         } catch (error) {
             console.error('Error al procesar el pago con PayPal:', error);
             throw error;

@@ -1,5 +1,5 @@
 import { ClientPay, PayData } from '../../domain/contracts/ClientPay';
-import { CashPayService } from '../../domain/services/CashPay.service';
+import { CashPayService } from '../../infrastructure/services/CashPay.service';
 import { PublisherUserPay } from '../observers/PublishersUserPay';
 
 export class AdapterCashPay implements ClientPay {
