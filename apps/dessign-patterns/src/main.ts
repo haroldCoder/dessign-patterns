@@ -17,8 +17,11 @@ import { CafeinaEntity } from "./domain/entities/Cafeina.entity";
 import { ProductEntity } from "./domain/entities/Product.entity";
 import { TaurinaEntity } from "./domain/entities/Taurina.entity";
 import { ProductsOrderFactory } from "./domain/factories/ProductOrder.factory";
-import { CreateOrderService } from "./domain/services/createOrder.service";
-import { StripePay } from "./domain/services/StripePay.service";
+import { BuildDrink } from "./infrastructure/services/build-drink/build-drink";
+import { SaleDrinkService } from "./infrastructure/services/build-drink/sale-drink.service";
+import { SaveIngredientsService } from "./infrastructure/services/build-drink/save-ingredients.service";
+import { CreateOrderService } from "./infrastructure/services/createOrder.service";
+import { StripePay } from "./infrastructure/services/StripePay.service";
 
 const factory = new ProductsOrderFactory();
 const service = new CreateOrderService(factory);
@@ -33,10 +36,10 @@ validAmountUser.setNext(requestOrder);
 validAmountUser.handle({ producType: "koderx-blue", amount: 500 });
 
 const koderxRed = ProductEntity.builder()
-.withId("DDX-123")
-.withName("koderx-red")
-.withPrice(500)
-.build();
+    .withId("DDX-123")
+    .withName("koderx-red")
+    .withPrice(500)
+    .build();
 const koderxRedVip = koderxRed.clone();
 koderxRedVip.makeProduct();
 
@@ -50,14 +53,14 @@ console.log(koderxRedWithDiscount);
 
 const stripePay = new StripePay(2345678820, 12345, "EJX-20334-xx123");
 const payWhithStripe = new AdapterStripePay(stripePay);
-payWhithStripe.methodPay({user: user1, amount: 5000, currency: "EUR"});
+payWhithStripe.methodPay({ user: user1, amount: 5000, currency: "EUR" });
 
 const orchestadorPay = new PublisherUserPay();
 orchestadorPay.subscribe(new SavePay());
 orchestadorPay.subscribe(new PointUserForPay());
 
 const payWithCash = new AdapterCashPay(orchestadorPay);
-payWithCash.methodPay({user: user1, amount: 1000, currency: "USD"});
+payWithCash.methodPay({ user: user1, amount: 1000, currency: "USD" });
 
 // ============================================
 // Ejemplo del Patrón Adaptador: Sustancia a Bebida
@@ -98,3 +101,16 @@ packageHandler.setNext(loadHandler).setNext(shipHandler);
 packageHandler.handle(orderData);
 
 console.log("\n✅ Proceso de orden completado exitosamente!");
+
+
+// ============================================
+// Ejemplo del Patrón Comando: Flujo de Construccion de Bebidas
+// ============================================
+console.log("\n\n╔════════════════════════════════════════════════════╗");
+console.log("║    PATRÓN COMANDO: Flujo de Construccion de Bebidas     ║");
+console.log("╚════════════════════════════════════════════════════╝");
+
+const saveIngredientsService = new SaveIngredientsService();
+const saleDrinkService = new SaleDrinkService();
+const buildDrink = new BuildDrink(saveIngredientsService, saleDrinkService, ["cafeina", "taurina"], "koderx-blue");
+buildDrink.execute();

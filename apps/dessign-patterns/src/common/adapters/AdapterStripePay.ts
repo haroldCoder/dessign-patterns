@@ -1,10 +1,10 @@
 import { ClientPay, PayData } from "../../domain/contracts/ClientPay";
-import { StripePay } from "../../domain/services/StripePay.service";
+import { StripePay } from "../../infrastructure/services/StripePay.service";
 
-export class AdapterStripePay implements ClientPay{
+export class AdapterStripePay implements ClientPay {
     stripePay: StripePay;
 
-    constructor(stripePay: StripePay){
+    constructor(stripePay: StripePay) {
         this.stripePay = stripePay;
     }
 
